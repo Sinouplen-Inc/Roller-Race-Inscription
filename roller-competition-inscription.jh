@@ -1,0 +1,76 @@
+entity Country {
+	name String
+}
+
+entity Club {
+	name String
+}
+
+entity League {
+	name String
+}
+
+entity Department {
+	name String required
+}
+
+entity Skater {
+	name String required
+    surname String required
+    licenceNumber String required
+}
+
+entity Competition {
+	name String
+}
+
+entity Race {
+	name String
+}
+
+entity RaceType {
+	name String
+    description String
+}
+
+entity EngagementSkater {
+  
+}
+
+entity Engagement {
+
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+relationship OneToMany {
+    League{department} to Department
+    Department to Club{department}
+  	Club{skaters} to Skater
+    Competition to Race
+	Engagement{skaters} to EngagementSkater
+}
+
+relationship OneToOne {
+	EngagementSkater{skater} to Skater
+	Engagement{race} to Race
+    Race to RaceType
+    Skater{country} to Country
+}
+
+// Set pagination options
+paginate Skater with infinite-scroll
+paginate Job with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
